@@ -8,31 +8,31 @@
 #define TRUE 1
 #define FALSE 0
 using namespace std;;
-typedef struct nodo
+typedef struct nodo3
 {
 	int dato;
 	int FE;
-	struct nodo *D;
-	struct nodo *IZ;
-	struct nodo *padre;
+	struct nodo3 *D;
+	struct nodo3 *IZ;
+	struct nodo3 *padre;
 }*AVL;
 
-void Insertar(AVL *nodo, int dato);
-void Eliminar_nodo(AVL *n, int dato);
+void Insertar(AVL *nodo3, int dato);
+void Eliminar_nodo3(AVL *n, int dato);
 int Buscar(AVL n, int dato);
 int EsHoja(AVL n);
-int Num_Nodos(AVL n, int* c);
+int Num_nodo3s(AVL n, int* c);
 int Altura_Arbol(AVL n, int* altura);
-int Nivel_Nodo(AVL n, int dato);
+int Nivel_nodo3(AVL n, int dato);
 void InOrden(AVL, void(*func)(int*));
 void PreOrden(AVL, void(*func)(int*));
 void PostOrden(AVL, void(*func)(int*));
-void Equilibrar(AVL *raiz, AVL nodo, int, int);
-void RSI(AVL *r, AVL nodo);
-void RSD(AVL *r, AVL nodo);
-void RDI(AVL *r, AVL nodo);
-void RDD(AVL *r, AVL nodo);
-void Eliminar_Arbol(AVL *nodo);
+void Equilibrar(AVL *raiz, AVL nodo3, int, int);
+void RSI(AVL *r, AVL nodo3);
+void RSD(AVL *r, AVL nodo3);
+void RDI(AVL *r, AVL nodo3);
+void RDD(AVL *r, AVL nodo3);
+void Eliminar_Arbol(AVL *nodo3);
 void auxContador(AVL n, int*);
 void auxAltura(AVL a, int, int*);
 void Mostrar(int *n);
@@ -53,7 +53,7 @@ void menu3() {// ESTE ERA EL MAIN
 		printf("\n1. Insertar         *");
 		printf("\n2. Mostrar          *");
 		printf("\n3. Buscar           *");
-		printf("\n4. Eliminar nodo    *");
+		printf("\n4. Eliminar nodo3    *");
 		printf("\n5. Eliminar árbol   *");
 		printf("\n6. Salir            *");
 		printf("\n*********************");
@@ -71,7 +71,7 @@ void menu3() {// ESTE ERA EL MAIN
 		{
 		case 1:   system("cls");
 
-			printf("\n INGRESE CANTIDAD DE NODOS ->");
+			printf("\n INGRESE CANTIDAD DE nodo3S ->");
 
 			scanf_s("%d", &ndatos);
 
@@ -86,7 +86,7 @@ void menu3() {// ESTE ERA EL MAIN
 				Insertar(&Arbol, num);
 			}
 			system("cls");
-			printf("\n Número nodos ----> %d ", Num_Nodos(Arbol, &num));
+			printf("\n Número nodo3s ----> %d ", Num_nodo3s(Arbol, &num));
 
 			printf("\n\n Altura `árbol ----> %d ", Altura_Arbol(Arbol, &num));
 
@@ -110,13 +110,13 @@ void menu3() {// ESTE ERA EL MAIN
 
 		case 2:   system("cls");
 			verArbol(Arbol, 0);
-			printf("\n\n Introduzca nodo      ");
+			printf("\n\n Introduzca nodo3      ");
 
 			scanf_s("%d", &num);
 
 			system("cls");
 
-			printf("\n\n Nivel de %d  ---->  %d\n", num, Nivel_Nodo(Arbol, num));
+			printf("\n\n Nivel de %d  ---->  %d\n", num, Nivel_nodo3(Arbol, num));
 
 			printf("\n\n\n\n\n\n\n\n");
 
@@ -154,7 +154,7 @@ void menu3() {// ESTE ERA EL MAIN
 
 			system("cls");
 
-			Eliminar_nodo(&Arbol, num);
+			Eliminar_nodo3(&Arbol, num);
 
 			printf("\n\n Eliminado    ----> %d  ", num);
 
@@ -162,7 +162,7 @@ void menu3() {// ESTE ERA EL MAIN
 
 			InOrden(Arbol, Mostrar);
 
-			printf("\n\n Número nodos ----> %d", Num_Nodos(Arbol, &num));
+			printf("\n\n Número nodo3s ----> %d", Num_nodo3s(Arbol, &num));
 
 			printf("\n\n Altura árbol ----> %d", Altura_Arbol(Arbol, &num));
 
@@ -207,11 +207,11 @@ void menu3() {// ESTE ERA EL MAIN
 }
 
 
-void Insertar(AVL *nodo, int dato)
+void Insertar(AVL *nodo3, int dato)
 {
 	AVL padre = NULL;
 
-	AVL actual = *nodo;
+	AVL actual = *nodo3;
 
 	while (actual != NULL && dato != actual->dato)
 	{
@@ -231,20 +231,20 @@ void Insertar(AVL *nodo, int dato)
 
 	if (padre == NULL)
 	{
-		*nodo = (AVL)malloc(sizeof(struct nodo));
+		*nodo3 = (AVL)malloc(sizeof(struct nodo3));
 
-		(*nodo)->dato = dato;
+		(*nodo3)->dato = dato;
 
-		(*nodo)->IZ = (*nodo)->D = NULL;
+		(*nodo3)->IZ = (*nodo3)->D = NULL;
 
-		(*nodo)->padre = NULL;
+		(*nodo3)->padre = NULL;
 
-		(*nodo)->FE = 0;
+		(*nodo3)->FE = 0;
 	}
 
 	else if (dato < padre->dato)
 	{
-		actual = (AVL)malloc(sizeof(struct nodo));
+		actual = (AVL)malloc(sizeof(struct nodo3));
 
 		padre->IZ = actual;
 
@@ -256,11 +256,11 @@ void Insertar(AVL *nodo, int dato)
 
 		actual->FE = 0;
 
-		Equilibrar(nodo, padre, IZQUIERDA, TRUE);
+		Equilibrar(nodo3, padre, IZQUIERDA, TRUE);
 	}
 	else if (dato > padre->dato)
 	{
-		actual = (AVL)malloc(sizeof(struct nodo));
+		actual = (AVL)malloc(sizeof(struct nodo3));
 
 		padre->D = actual;
 
@@ -272,68 +272,68 @@ void Insertar(AVL *nodo, int dato)
 
 		actual->FE = 0;
 
-		Equilibrar(nodo, padre, DERECHA, TRUE);
+		Equilibrar(nodo3, padre, DERECHA, TRUE);
 	}
 }
 
-void Equilibrar(AVL *r, AVL nodo, int rama, int dato)
+void Equilibrar(AVL *r, AVL nodo3, int rama, int dato)
 {
 	int salir = FALSE;
 
-	while (nodo && !salir)
+	while (nodo3 && !salir)
 	{
 		if (dato)
 
 			if (rama == IZQUIERDA)
 
-				nodo->FE--;
+				nodo3->FE--;
 
 			else
 
-				nodo->FE++;
+				nodo3->FE++;
 
 		else
 
 			if (rama == IZQUIERDA)
 
-				nodo->FE++;
+				nodo3->FE++;
 
 			else
 
-				nodo->FE--;
+				nodo3->FE--;
 
-		if (nodo->FE == 0)
+		if (nodo3->FE == 0)
 
 			salir = TRUE;
 
-		else if (nodo->FE == -2)
+		else if (nodo3->FE == -2)
 		{
-			if (nodo->IZ->FE == 1)
+			if (nodo3->IZ->FE == 1)
 
-				RDD(r, nodo);
+				RDD(r, nodo3);
 
 			else
 
-				RSD(r, nodo);
+				RSD(r, nodo3);
 
 			salir = TRUE;
 
 		}
-		else if (nodo->FE == 2) {
+		else if (nodo3->FE == 2) {
 
-			if (nodo->D->FE == -1)
+			if (nodo3->D->FE == -1)
 
-				RDI(r, nodo);
+				RDI(r, nodo3);
 
 			else
 
-				RSI(r, nodo);
+				RSI(r, nodo3);
 
 			salir = TRUE;
 		}
-		if (nodo->padre)
+		if (nodo3->padre)
 
-			if (nodo->padre->D == nodo)
+			if (nodo3->padre->D == nodo3)
 
 				rama = DERECHA;
 
@@ -341,20 +341,20 @@ void Equilibrar(AVL *r, AVL nodo, int rama, int dato)
 
 				rama = IZQUIERDA;
 
-		nodo = nodo->padre;
+		nodo3 = nodo3->padre;
 	}
 }
 
-int EsHoja(AVL nodo)
+int EsHoja(AVL nodo3)
 {
-	return !nodo->D && !nodo->IZ;
+	return !nodo3->D && !nodo3->IZ;
 }
 
 
-void RDD(AVL *r, AVL nodo)
+void RDD(AVL *r, AVL nodo3)
 {
-	AVL Padre = nodo->padre;
-	AVL A = nodo;
+	AVL Padre = nodo3->padre;
+	AVL A = nodo3;
 	AVL B = A->IZ;
 	AVL C = B->D;
 	AVL CI = C->IZ;
@@ -401,10 +401,10 @@ void RDD(AVL *r, AVL nodo)
 }
 
 
-void RDI(AVL *r, AVL nodo)
+void RDI(AVL *r, AVL nodo3)
 {
-	AVL Padre = nodo->padre;
-	AVL A = nodo;
+	AVL Padre = nodo3->padre;
+	AVL A = nodo3;
 	AVL B = A->D;
 	AVL C = B->IZ;
 	AVL CI = C->IZ;
@@ -451,10 +451,10 @@ void RDI(AVL *r, AVL nodo)
 	C->FE = 0;
 }
 
-void RSD(AVL *r, AVL nodo)
+void RSD(AVL *r, AVL nodo3)
 {
-	AVL Padre = nodo->padre;
-	AVL A = nodo;
+	AVL Padre = nodo3->padre;
+	AVL A = nodo3;
 	AVL B = A->IZ;
 	AVL C = B->D;
 	if (Padre)
@@ -482,10 +482,10 @@ void RSD(AVL *r, AVL nodo)
 	B->FE = 0;
 }
 
-void RSI(AVL *r, AVL nodo)
+void RSI(AVL *r, AVL nodo3)
 {
-	AVL Padre = nodo->padre;
-	AVL A = nodo;
+	AVL Padre = nodo3->padre;
+	AVL A = nodo3;
 	AVL B = A->D;
 	AVL C = B->IZ;
 	if (Padre)
@@ -513,13 +513,13 @@ void RSI(AVL *r, AVL nodo)
 	B->FE = 0;
 }
 
-void Eliminar_nodo(AVL *n, int dato)
+void Eliminar_nodo3(AVL *n, int dato)
 {
 	AVL padre = NULL;
 
 	AVL actual;
 
-	AVL nodo;
+	AVL nodo3;
 
 	int aux;
 
@@ -572,35 +572,35 @@ void Eliminar_nodo(AVL *n, int dato)
 
 				if (actual->D)
 				{
-					nodo = actual->D;
+					nodo3 = actual->D;
 
-					while (nodo->IZ)
+					while (nodo3->IZ)
 					{
-						padre = nodo;
+						padre = nodo3;
 
-						nodo = nodo->IZ;
+						nodo3 = nodo3->IZ;
 					}
 				}
 
 				else {
 
-					nodo = actual->IZ;
+					nodo3 = actual->IZ;
 
-					while (nodo->D)
+					while (nodo3->D)
 					{
-						padre = nodo;
+						padre = nodo3;
 
-						nodo = nodo->D;
+						nodo3 = nodo3->D;
 					}
 				}
 
 				aux = actual->dato;
 
-				actual->dato = nodo->dato;
+				actual->dato = nodo3->dato;
 
-				nodo->dato = aux;
+				nodo3->dato = aux;
 
-				actual = nodo;
+				actual = nodo3;
 			}
 
 		}
@@ -620,47 +620,47 @@ void Eliminar_nodo(AVL *n, int dato)
 }
 
 
-void InOrden(AVL nodo, void(*func)(int*))
+void InOrden(AVL nodo3, void(*func)(int*))
 {
-	if (nodo->IZ)
+	if (nodo3->IZ)
 
-		InOrden(nodo->IZ, func);
+		InOrden(nodo3->IZ, func);
 
-	func(&(nodo->dato));
+	func(&(nodo3->dato));
 
-	if (nodo->D)
+	if (nodo3->D)
 
-		InOrden(nodo->D, func);
+		InOrden(nodo3->D, func);
 }
-void PreOrden(AVL nodo, void(*func)(int*))
+void PreOrden(AVL nodo3, void(*func)(int*))
 {
-	func(&nodo->dato);
+	func(&nodo3->dato);
 
-	if (nodo->IZ)
+	if (nodo3->IZ)
 
-		PreOrden(nodo->IZ, func);
+		PreOrden(nodo3->IZ, func);
 
-	if (nodo->D)
+	if (nodo3->D)
 
-		PreOrden(nodo->D, func);
+		PreOrden(nodo3->D, func);
 }
-void PostOrden(AVL nodo, void(*func)(int*))
+void PostOrden(AVL nodo3, void(*func)(int*))
 {
-	if (nodo->IZ)
+	if (nodo3->IZ)
 
-		PostOrden(nodo->IZ, func);
+		PostOrden(nodo3->IZ, func);
 
-	if (nodo->D)
+	if (nodo3->D)
 
-		PostOrden(nodo->D, func);
+		PostOrden(nodo3->D, func);
 
-	func(&nodo->dato);
+	func(&nodo3->dato);
 }
 
 
-int Buscar(AVL nodo, int dato)
+int Buscar(AVL nodo3, int dato)
 {
-	AVL actual = nodo;
+	AVL actual = nodo3;
 	while (actual != NULL)
 	{
 		if (dato == actual->dato)
@@ -677,10 +677,10 @@ int Buscar(AVL nodo, int dato)
 	return FALSE;
 }
 
-int Nivel_Nodo(AVL nodo, int dato)
+int Nivel_nodo3(AVL nodo3, int dato)
 {
 	int altura = 0;
-	AVL actual = nodo;
+	AVL actual = nodo3;
 	while (actual != NULL)
 	{
 		if (dato == actual->dato)
@@ -696,36 +696,36 @@ int Nivel_Nodo(AVL nodo, int dato)
 	return -1;
 }
 
-void auxContador(AVL nodo, int *c)
+void auxContador(AVL nodo3, int *c)
 {
 	(*c)++;
-	if (nodo->IZ)
-		auxContador(nodo->IZ, c);
-	if (nodo->D)
-		auxContador(nodo->D, c);
+	if (nodo3->IZ)
+		auxContador(nodo3->IZ, c);
+	if (nodo3->D)
+		auxContador(nodo3->D, c);
 }
 
-int Num_Nodos(AVL nodo, int *cont)
+int Num_nodo3s(AVL nodo3, int *cont)
 {
 	*cont = 0;
-	auxContador(nodo, cont);
+	auxContador(nodo3, cont);
 	return *cont;
 }
 
-void auxAltura(AVL nodo, int a, int *altura)
+void auxAltura(AVL nodo3, int a, int *altura)
 {
-	if (nodo->IZ)
-		auxAltura(nodo->IZ, a + 1, altura);
-	if (nodo->D)
-		auxAltura(nodo->D, a + 1, altura);
-	if (EsHoja(nodo) && a > *altura)
+	if (nodo3->IZ)
+		auxAltura(nodo3->IZ, a + 1, altura);
+	if (nodo3->D)
+		auxAltura(nodo3->D, a + 1, altura);
+	if (EsHoja(nodo3) && a > *altura)
 		*altura = a;
 }
 
-int Altura_Arbol(AVL nodo, int *altura)
+int Altura_Arbol(AVL nodo3, int *altura)
 {
 	*altura = 0;
-	auxAltura(nodo, 0, altura);
+	auxAltura(nodo3, 0, altura);
 	return *altura;
 }
 
@@ -734,14 +734,14 @@ void Mostrar(int *n)
 	printf("%d, ", *n);
 }
 
-void Eliminar_Arbol(AVL *nodo)
+void Eliminar_Arbol(AVL *nodo3)
 {
-	if (*nodo)
+	if (*nodo3)
 	{
-		Eliminar_Arbol(&(*nodo)->IZ);
-		Eliminar_Arbol(&(*nodo)->D);
-		free(*nodo);
-		*nodo = NULL;
+		Eliminar_Arbol(&(*nodo3)->IZ);
+		Eliminar_Arbol(&(*nodo3)->D);
+		free(*nodo3);
+		*nodo3 = NULL;
 	}
 }
 void verArbol(AVL arbol, int n)
